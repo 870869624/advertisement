@@ -8,7 +8,7 @@ import (
 	"github.com/jinghaijun.com/advertisement-management/models/area"
 )
 
-func Add(context *gin.Context) {
+func Create(context *gin.Context) {
 	var area area.Area
 	if err := context.ShouldBindJSON(&area); err != nil {
 		context.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
@@ -16,7 +16,7 @@ func Add(context *gin.Context) {
 		})
 		return
 	}
-	e := area.Add()
+	e := area.Create()
 	if e != nil {
 		context.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
 			"message": e.Error(),
@@ -88,5 +88,24 @@ func Delete(context *gin.Context) {
 	}
 	context.JSON(http.StatusOK, gin.H{
 		"message": "删除成功",
+	})
+}
+func Change(context *gin.Context) {
+	var New area.New
+	if err := context.ShouldBindJSON(&New); err != nil {
+		context.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			"message": err,
+		})
+		return
+	}
+	err := New.CHange()
+	if err != nil {
+		context.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+			"message": err.Error(),
+		})
+		return
+	}
+	context.JSON(http.StatusOK, gin.H{
+		"message": "修改成功",
 	})
 }

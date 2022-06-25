@@ -5,6 +5,7 @@ import (
 	"github.com/jinghaijun.com/advertisement-management/api/area"
 	"github.com/jinghaijun.com/advertisement-management/api/authentication"
 	"github.com/jinghaijun.com/advertisement-management/api/media"
+	"github.com/jinghaijun.com/advertisement-management/api/mediaorganization"
 	"github.com/jinghaijun.com/advertisement-management/api/user"
 	"github.com/jinghaijun.com/advertisement-management/middleware/authorzition"
 )
@@ -31,8 +32,12 @@ func main() {
 		media_group.PATCH("/change", media.Change)
 		media_group.GET("", media.List)
 	}
-	r.POST("/area", area.Add)
+	r.POST("/area", area.Create)
 	r.GET("/area/list", area.List)
 	r.DELETE("/area/delete", area.Delete)
+	r.PATCH("/area/change", area.Change)
+
+	r.POST("/mediaor", mediaorganization.Create)
+
 	r.Run(":8000")
 }
